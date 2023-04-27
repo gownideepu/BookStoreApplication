@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
 @Repository
 public interface UserRepository extends org.springframework.data.jpa.repository.JpaRepository<UserData,Integer>{
     @Query(value = "select email from user_data where email= :email", nativeQuery = true)

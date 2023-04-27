@@ -41,7 +41,7 @@ public class UserServiceImp implements UserService{
             userData.setOtp(generateOtp);
             userRepository.save(userData);
             System.out.println(email);
-            emailService.sendEmail(userData.getEmail(),"The data added successfully ", "hi  .." + userData.getFirstName()+userData.getLastName()+ "\n your data added successfully " + "\n your otp is  <- " + generateOtp + " ->");
+//            emailService.sendEmail(userData.getEmail(),"The data added successfully ", "hi  .." + userData.getFirstName()+userData.getLastName()+ "\n your data added successfully " + "\n your otp is  <- " + generateOtp + " ->");
             return "otp generated successfully........ ";
         }
     }
