@@ -30,22 +30,22 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
-    public BookModel updateBook(int id, BookDto bookDto) {
-        BookModel bookModel=this.getById(id);
+    public BookModel updateBook(int book_id, BookDto bookDto) {
+        BookModel bookModel=this.getById(book_id);
         bookModel.updateData(bookDto);
         return bookRepository.save(bookModel);
     }
 
     @Override
-    public BookModel getById(int id) {
-        return bookRepository.findById(id).orElseThrow(() -> new BookStoreCustomException(" Data Not found .. wih id: "+ id));
+    public BookModel getById(int book_id) {
+        return bookRepository.findById(book_id).orElseThrow(() -> new BookStoreCustomException(" Data Not found .. wih id: "+ book_id));
     }
 
     @Override
-    public ResponseDto delete(int id) {
-        BookModel book=this.getById(id);
-        bookRepository.deleteById(id);
-        return new ResponseDto("The Data has deleted", id);
+    public ResponseDto delete(int book_id) {
+        BookModel book=this.getById(book_id);
+        bookRepository.deleteById(book_id);
+        return new ResponseDto("The Data has deleted", book_id);
     }
 
     @Override
@@ -63,11 +63,11 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
-    public String changeBookPrice(String token, int id, float price) {
+    public String changeBookPrice(String token, int book_id, float price) {
         int useId=jwtToken.decodeToken(token);
         Optional<UserData> user = userRepository.findById(useId);
         if(user!=null){
-            Optional<BookModel> bookStore=bookRepository.findById(id);
+            Optional<BookModel> bookStore=bookRepository.findById(book_id);
             bookStore.get().setBookPrice(price);
             bookRepository.save(bookStore.get());
             return "Ther Price changed.........";
@@ -77,12 +77,12 @@ public class BookServiceImp implements BookService {
         }
     }
     @Override
-    public String changeBookQuantity(String token, int id, int quantity) {
+    public String changeBookQuantity(String token, int book_id, int quantity) {
         int useId=jwtToken.decodeToken(token);
         Optional<UserData> user = userRepository.findById(useId);
         System.out.println("user "+user);
         if(user!=null){
-            Optional<BookModel> bookStore=bookRepository.findById(id);
+            Optional<BookModel> bookStore=bookRepository.findById(book_id);
             bookStore.get().setBookQuantity(quantity);
             bookRepository.save(bookStore.get());
             return "Ther quantity changed.........";
