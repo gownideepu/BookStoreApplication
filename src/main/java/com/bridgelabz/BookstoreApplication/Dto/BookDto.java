@@ -13,7 +13,6 @@ public class BookDto {
     @NotEmpty
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$",message = "The Name is notEmpty")
     private String bookName;
-
     private String bookAuthor;
     private String bookDescription;
     private String bookLogo;

@@ -14,20 +14,19 @@ public class UserDto {
     private String firstName;
     @NotEmpty(message = "The LastName is not empty" )
     private String lastName;
-    private String kyc;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dob;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate registeredDate;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate updatedDate;
+//    @JsonFormat(pattern = "dd-MM-yyyy")
+//    private LocalDate updatedDate;
     @NotEmpty(message = "the password is not empty")
     private String password;
     @NotEmpty(message = "The email is not empty")
     private String email;
     private int otp;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate purchaseDate;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate expiryDate;
+//    @JsonFormat(pattern = "dd-MM-yyyy")
+//    private LocalDate purchaseDate;
+//    @JsonFormat(pattern = "dd-MM-yyyy")
+//    private LocalDate expiryDate;
 }

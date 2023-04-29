@@ -23,36 +23,34 @@ public class BookController {
         return bookService.addData(bookDto);
     }
 
-    @PutMapping("Put/{id}")
-    public BookModel updateBook(@PathVariable int id, @RequestBody BookDto bookDto) {
-        return bookService.updateBook(id, bookDto);
+    @PutMapping("/Put/{book_id}")
+    public BookModel updateBook(@PathVariable int book_id, @RequestBody BookDto bookDto) {
+        return bookService.updateBook(book_id, bookDto);
     }
-
-    @GetMapping("/getbook/{id}")
-    public BookModel getById(@PathVariable int id) {
-        return bookService.getById(id);
+    @GetMapping("/getbook/{book_id}")
+    public BookModel getById(@PathVariable int book_id) {
+        return bookService.getById(book_id);
     }
     @GetMapping("/bookbyname")
     public List<BookModel> getBookByName(@RequestParam String name) {
         return bookService.getBookByName(name);
     }
-    @GetMapping("/allbooks")
+    @GetMapping("/getallbooks")
     public ResponseDto getAllData() {
         List<BookModel> books = bookService.getAllData();
         return new ResponseDto("The all Book Data",books);
     }
-    @DeleteMapping("/deletebook/{id}")
-    public ResponseDto Delete(@PathVariable int id) {
-        return  bookService.delete(id);
+    @DeleteMapping("/deletebook/{book_id}")
+    public ResponseDto Delete(@PathVariable int book_id) {
+        return  bookService.delete(book_id);
 
     }
     @PutMapping("/changePrice")
-    public String ChangeBookPrice(@RequestParam String token ,@RequestParam int id ,@RequestParam float price){
-        return bookService.changeBookPrice(token,id,price);
+    public String ChangeBookPrice(@RequestParam String token ,@RequestParam int book_id ,@RequestParam float price){
+        return bookService.changeBookPrice(token,book_id,price);
     }
-    @PutMapping("/changquantity/{token}")
-    public String ChangeBookQuantity(@PathVariable String token ,@RequestParam int id ,@RequestParam int quantity){
-        return bookService.changeBookQuantity(token,id,quantity);
+    @PutMapping("/changequantity/{token}")
+    public String ChangeBookQuantity(@PathVariable String token ,@RequestParam int book_id ,@RequestParam int quantity){
+        return bookService.changeBookQuantity(token,book_id,quantity);
     }
-
 }
