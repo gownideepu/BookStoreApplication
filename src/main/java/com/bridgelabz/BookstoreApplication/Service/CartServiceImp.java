@@ -28,29 +28,35 @@ public class CartServiceImp implements CartService {
     private JWTToken jwtToken;
 
     @Override
-    public ResponseDto addCart(CartDto cartDto) {
-        int user_id=jwtToken.decodeToken(cartDto.getToken());
-        Optional<UserData> user = userRepository.findById(user_id);
+    public ResponseDto addCart(CartDto cartDto){
+    int user_id = jwtToken.decodeToken(cartDto.getToken());
+    Optional<UserData> user =userRepository.findById(user_id);//
         if (user.isPresent()) {
-            BookModel book = bookService.getById(cartDto.getBook_id());
-            CartModel cartModel = new CartModel(user.get(), book, cartDto.quantity);
-            cartRepository.save(cartModel);
-            return new ResponseDto("", cartModel);
+        CartModel dataBaseBookId=cartRepository.findBookId(cartDto.book_id,user_id);
+        if (dataBaseBookId !=null) {
+            Optional<CartModel> data = cartRepository.findDataByBookId(cartDto.book_id);
+            data.get().setQuantity(data.get().getQuantity() + cartDto.getQuantity());
+            return new ResponseDto("the cart is added ", cartRepository.save(data.get()));
         } else {
-            return new ResponseDto("The cart is not added ", " ");
+            BookModel book = bookService.getById(cartDto.getBook_id());
+            CartModel cartDta = new CartModel(user.get(), book, cartDto.quantity);
+            return new ResponseDto("", cartRepository.save(cartDta));
         }
     }
+         else {
+        return new ResponseDto("The cart is not added ", " The data is not present with user ");
+    }
+
+}
     @Override
     public ResponseDto removeCartById(int cartId) {
         cartRepository.deleteById(cartId);
         return new ResponseDto("The Cart deleted ", "id" + cartId);
     }
-
     @Override
     public CartModel getById(int cartId) {
         return cartRepository.findById(cartId).orElseThrow(() -> new BookStoreCustomException(" Data Not found .. wih id: " + cartId));
     }
-
     @Override
     public ResponseDto getCartByToken(String token) {
         int id = jwtToken.decodeToken(token);
